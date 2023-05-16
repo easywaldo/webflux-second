@@ -32,4 +32,8 @@ class UserService(
     fun countAll(): Mono<Long> {
         return userRepository.countAll()
     }
+
+    fun getUser(id: UUID): Mono<User> {
+        return userRepository.findById(id)
+    }
 }

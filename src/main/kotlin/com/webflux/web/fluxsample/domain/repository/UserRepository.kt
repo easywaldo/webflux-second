@@ -4,11 +4,13 @@ import com.webflux.web.fluxsample.domain.entity.User
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.r2dbc.core.delete
 import org.springframework.data.r2dbc.core.insert
+import org.springframework.data.r2dbc.core.select
 import org.springframework.data.relational.core.query.Criteria.where
 import org.springframework.data.relational.core.query.Query
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import java.util.UUID
 
 @Repository
 class UserRepository(private val entityTemplate: R2dbcEntityTemplate) {
@@ -21,8 +23,9 @@ class UserRepository(private val entityTemplate: R2dbcEntityTemplate) {
         return entityTemplate.select(User::class.java).count()
     }
 
-    fun findById(id: Long): Mono<User> {
-        return entityTemplate.selectOne(Query.query(where ("firstname").`is`("easywaldo")), User::class.java)
+    fun findById(id: UUID): Mono<User> {
+        return entityTemplate.selectOne(Query.query(where("id").`is`(id)), User::class.java)
+//        return entityTemplate.selectOne(Query.query(where ("firstname").`is`("easywaldo")), User::class.java)
     }
 
     fun save(user: User): Mono<User> {
