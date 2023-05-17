@@ -32,7 +32,7 @@ class UserRepository(private val entityTemplate: R2dbcEntityTemplate) {
         return entityTemplate.insert<User>().using(user).map { user }
     }
 
-    fun deleteById(id: Long): Mono<Boolean> {
+    fun deleteById(id: UUID): Mono<Boolean> {
         return entityTemplate.delete<User>()
             .matching(
                 Query.query(where("id").`is`(id)))

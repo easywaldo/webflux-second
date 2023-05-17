@@ -36,4 +36,8 @@ class UserService(
     fun getUser(id: UUID): Mono<User> {
         return userRepository.findById(id)
     }
+
+    fun deleteUser(id: UUID): Mono<Boolean> {
+        return userRepository.deleteById(id)
+    }
 }
